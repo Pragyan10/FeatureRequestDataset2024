@@ -2,6 +2,10 @@
 
 # Repository for web scrapped data from different open source projects - work in progress
 
+## App included 
+1. Mastodon
+2. Signal
+
 ## Directory Details 
 1. **Samples** - This directory contains samples pulled from the complete dataset. We have 3 files of sample size 5, 10, and 50 which all are pulled using stratified sampling.
 2. **CombinedIntoSingleFile** - This directory contains the merged feature requets into single files - all requests from all apps, all closed requests from all the apps.
