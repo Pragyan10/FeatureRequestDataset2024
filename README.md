@@ -10,6 +10,7 @@
 1. Mastodon - Open Requests - 36
 2. Mastodon - Closed Requests - 17
 3. Signal - Closed Requests - 414
+Total - 467
 
 ## Directory Details 
 1. **Samples** - This directory contains samples pulled from the complete dataset. We have 3 files of sample size 5, 10, and 50 which all are pulled using stratified sampling.
