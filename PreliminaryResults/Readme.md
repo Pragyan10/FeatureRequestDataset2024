@@ -12,7 +12,13 @@
 
 ## Plots 
 
+## Mastodon Feature Requests Analaysis 
+
+### No of Closed Requests with commit ID and without commit ID 
+
 ![Masodon_main_analysis.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Masodon_main_analysis.png)
+
+### Coding framework for why the Closed Requests had no commit ID
 
 ![Mastodon_main_reasons.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Mastodon_main_reasons.png)
 
