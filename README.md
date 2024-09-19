@@ -16,6 +16,7 @@
 2. **CombinedIntoSingleFile** - This directory contains the merged feature requets into single files - all requests from all apps, all closed requests from all the apps.
 3. **Feature Request** - <u> **This is the main directory ** </u> In this directory you will find 3 files. 2 for Mastodon and 1 for Signal. 2 files for Mastodon include the open and closed feature request. 1 file for signal is the closed feature request since there are no open requests. Filename format is - (app name)_(status)_(date)_Final-(NumberOfFeatureRequestsInTheFile)
 4. **AnnotationTool** - This directory contains all the files associated with the annotation tool.
+5. **PreliminaryResults** - Contains files for the preliminary results - baseline result generation and missed commit analysis. 
 
 
 ## Sampling technique in **Samples** 
