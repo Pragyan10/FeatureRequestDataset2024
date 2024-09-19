@@ -14,10 +14,10 @@
 
 ![Masodon_main_analysis.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Masodon_main_analysis.png)
 
-![Mastodon_main_reasons.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Masodon_main_analysis.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Mastodon_main_reasons.png)
+![Mastodon_main_reasons.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Mastodon_main_reasons.png)
 
-![Signal_main_analysis.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Masodon_main_analysis.png)
+![Signal_main_analysis.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Signal_main_analysis.png)
 
-![Signal_main_reasons.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Masodon_main_analysis.png)
+![Signal_main_reasons.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Signal_main_reasons.png)
 
-![Signal_rejected_reasons.png]([https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Masodon_main_analysis.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Signal_rejected_reasons.png))
+![Signal_rejected_reasons.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Signal_rejected_reasons.png)
