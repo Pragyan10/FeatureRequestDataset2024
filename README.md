@@ -12,7 +12,7 @@
 3. Signal - Closed Requests - 414 <br> Total Feature Requests - 467
 
 ## Directory Details 
-1. **Samples** - This directory contains samples pulled from the complete dataset. We have 3 files of sample size 5, 10, and 50 which all are pulled using stratified sampling.
+1. **Samples** - This directory contains samples pulled from the complete dataset. We have 3 files of sample size 5, 10, and 50 which all are pulled using stratified sampling. More details in (## Sampling technique in **Samples**)
 2. **CombinedIntoSingleFile** - This directory contains the merged feature requets into single files - all requests from all apps, all closed requests from all the apps.
 3. **Feature Request** - <u> **This is the main directory ** </u> In this directory you will find 3 files. 2 for Mastodon and 1 for Signal. 2 files for Mastodon include the open and closed feature request. 1 file for signal is the closed feature request since there are no open requests. Filename format is - (app name)_(status)_(date)_Final-(NumberOfFeatureRequestsInTheFile)
 4. **AnnotationTool** - This directory contains all the files associated with the annotation tool.
