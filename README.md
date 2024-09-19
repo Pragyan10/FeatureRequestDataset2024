@@ -20,5 +20,6 @@
 
 
 ## Sampling technique in **Samples** 
-- For pulling the samples out the complete dataset, we employ stratified sampling. 
+- For pulling the samples out the complete dataset, we employ stratified sampling.
+- Numbers of Feature Requests used in the Sampling - 439 (Open With Discussion = 17; Closed With Discussion = 422) - We only use the feature requests that includes the discussion - at least one added reply to the initial post 
 
