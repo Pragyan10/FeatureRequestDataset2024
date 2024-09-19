@@ -1,0 +1,48 @@
+Feature Request Number,FeatureRequestText,prompt,gpt_3_5_turbo_instruct_response
+Feature Request Number - 123,"Request Number: 123 - Request Title: Feature: voice notes - Request Description: Would be cool to just speak what you think or record a jam session. I don't know, recording voice notes feels natural.","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Number: 123 - Request Title: Feature: voice notes - Request Description: Would be cool to just speak what you think or record a jam session. I don't know, recording voice notes feels natural.""","1. Lexical ambiguity: The word ""request"" can refer to both a formal solicitation for something and a desire for something.
+2. Syntactic ambiguity: The phrase ""record a jam session"" can be interpreted as either recording a musical session or recording a session of traffic or other noise.
+3. Semantic ambiguity: The phrase ""just speak what you think"" could refer to speaking one's thoughts or speaking one's opinions.
+4. Pragmatic ambiguity: The phrase ""feels natural"" could mean that recording voice notes is a common or easy task, or that it is a natural way of expressing thoughts.
+5. Vagueness: The word ""cool"" is subjective and does not provide a clear description of what is being requested."
+Feature Request Number - 170,Request Number: 170 - Request Title: Option to hide reblogs from people you follow - Request Description: In the dropdown on profiles.,"You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Number: 170 - Request Title: Option to hide reblogs from people you follow - Request Description: In the dropdown on profiles.""","1. Lexical ambiguity: The word ""reblogs"" can have multiple interpretations - it could refer to blog posts that are shared by others, or it could refer to the act of reposting someone else's blog post. 
+2. Syntactic ambiguity: The phrase ""hide reblogs"" can be interpreted in two ways - it could mean hiding the ability to see reblogs from others, or it could mean hiding one's own reblogs from others.
+3. Semantic ambiguity: The phrase ""people you follow"" is ambiguous as it does not specify if it refers to people who follow the requestee or people whom the requestee follows.
+4. Pragmatic ambiguity: The request does not specify the purpose or context of the option to hide reblogs. It is unclear if this request is for personal privacy reasons or for customizing one's feed.
+5. Vagueness: The request does not specify where the ""dropdown on profiles"" is located, making it difficult to understand the intended implementation of the feature."
+Feature Request Number - 147,"Request Number: 147 - Request Title: don't change the position after new posts were loaded - Request Description: If I am on the top of my timeline I pull down to load new posts. The focus will then be moved to the top of the list to show the newest post. I then have to read down until I see (if I remember) the last post I read before the reload.In my opinion it would be way more comfortable and consistent to not change the position here, just put the new posts above and let the user read on in the same direction. (Upwards)Thanks!","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Number: 147 - Request Title: don't change the position after new posts were loaded - Request Description: If I am on the top of my timeline I pull down to load new posts. The focus will then be moved to the top of the list to show the newest post. I then have to read down until I see (if I remember) the last post I read before the reload.In my opinion it would be way more comfortable and consistent to not change the position here, just put the new posts above and let the user read on in the same direction. (Upwards)Thanks!""","1. Lexical ambiguity:
+- ""position"" can refer to physical or abstract position in this context
+- ""loaded"" can refer to loading of new posts or a person carrying a heavy load
+- ""read down"" can mean reading in a downward direction or reading further down in the post timeline
+- ""reload"" can refer to reloading a weapon or reloading new posts
+
+2. Syntactic ambiguity:
+- ""don't change"" can have multiple interpretations, such as not changing the actual position or not allowing for a change in position
+
+3. Semantic ambiguity:
+- ""timeline"" can refer to a linear sequence of events or a graphic representation of events
+- ""focus"" can refer to a mental focus or a visual focus
+- ""newest post"" can refer to the most recently posted post or the post with the newest content
+- ""user"" can refer to a person using the software or someone who uses the software frequently
+
+4. Pragmatic ambiguity:
+- ""comfortable"" can refer to physical comfort or ease of use
+- ""consistent"" can refer to consistency in design or consistency in behavior
+- ""direction"" can refer to a physical direction or a reading direction
+
+5. Vagueness:
+- The text does not specify which user is being referred to (e.g. new or existing user)
+- It is not clear what is meant by ""way more comfortable"" or ""consistent"" without further context or explanation."
+Feature Request Number - 158,"Request Number: 158 - Request Title: Block tags - Request Description: As a user I would like to be able to block certain tags from my time-line so I don't have to deal with unwanted content (either stuff that's annoying, spammy or straight offensive). In contrast to user- or domain-based blocks, this is a bit more fine grained (e.g. I might like a user in general but I don't care about their daily cat picture).PS: Thank you for providing and maintaining this great piece of software!","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Number: 158 - Request Title: Block tags - Request Description: As a user I would like to be able to block certain tags from my time-line so I don't have to deal with unwanted content (either stuff that's annoying, spammy or straight offensive). In contrast to user- or domain-based blocks, this is a bit more fine grained (e.g. I might like a user in general but I don't care about their daily cat picture).PS: Thank you for providing and maintaining this great piece of software!""","1. Lexical ambiguity: The word ""block"" could refer to both a physical barrier and a feature on a social media platform.
+2. Syntactic ambiguity: The phrase ""block certain tags from my time-line"" could mean either hiding posts with those tags or preventing posts with those tags from appearing on the user's timeline.
+3. Semantic ambiguity: The phrase ""unwanted content"" could refer to a wide range of things, such as offensive content, spam, or annoying posts.
+4. Pragmatic ambiguity: The purpose of the request is not explicitly stated, leaving room for interpretation or different interpretations.
+5. Vagueness: The phrase ""a bit more fine grained"" is not clearly defined and can be interpreted differently by different users."
+Feature Request Number - 145,"Request Number: 145 - Request Title: Feature: Dismiss profile recommendations in search tab - Request Description: It should be possible to dismiss the profiles listed under “For You”, because once you've scrolled through all of them, the list basically becomes pointless.","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Number: 145 - Request Title: Feature: Dismiss profile recommendations in search tab - Request Description: It should be possible to dismiss the profiles listed under “For You”, because once you've scrolled through all of them, the list basically becomes pointless.""","1. Lexical ambiguity: The word ""request"" can refer to both the request number and the feature request.
+
+2. Syntactic ambiguity: The phrase ""dismiss profile recommendations"" could be interpreted as either requesting to dismiss the recommendations or a feature that allows dismissing recommendations.
+
+3. Semantic ambiguity: The phrase ""For You"" could refer to either a user's own profile or profiles recommended to them.
+
+4. Pragmatic ambiguity: The statement ""once you've scrolled through all of them"" assumes that the reader has scrolled through all the profiles, but it is unclear if this is a requirement for the feature to be implemented.
+
+5. Vagueness: The term ""basically"" does not provide a clear definition of when the list becomes pointless, leaving room for interpretation."

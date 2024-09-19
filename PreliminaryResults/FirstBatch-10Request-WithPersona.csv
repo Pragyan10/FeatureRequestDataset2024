@@ -1,0 +1,117 @@
+Feature Request Number,FeatureRequestText,prompt,gpt_3_5_turbo_instruct_response
+Feature Request Number - 70,"Request Title: Reloading gets you to latest toot, losing hability to read oldest unread first - Request Description: Maybe this is a feature, not a bug of the app, but certainly it is what keeps me using Fedilab for now. With Fedilab, the loading of new toots keeps my current position on the timeline, so I can read things in their natural order. In official Mastodon app, as it takes you to the top, final toot, it forces you to scroll back down to whatever was the last toot you saw.","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Title: Reloading gets you to latest toot, losing hability to read oldest unread first - Request Description: Maybe this is a feature, not a bug of the app, but certainly it is what keeps me using Fedilab for now. With Fedilab, the loading of new toots keeps my current position on the timeline, so I can read things in their natural order. In official Mastodon app, as it takes you to the top, final toot, it forces you to scroll back down to whatever was the last toot you saw.""","1. Lexical ambiguity: The word ""oldest"" in the title could refer to the chronological age or the order in which the toots were received.
+
+2. Syntactic ambiguity: The phrase ""losing hability to read oldest unread first"" could be read as ""losing the ability to read the oldest unread toot first"" or ""losing the ability to read the oldest toot in the unread category first.""
+
+3. Semantic ambiguity: The phrase ""what keeps me using Fedilab for now"" could refer to either the app's feature or the bug mentioned in the previous sentence.
+
+4. Pragmatic ambiguity: The phrase ""certainly it is"" could be interpreted as either an affirmation or an expression of uncertainty.
+
+5. Vagueness: The phrase ""things in their natural order"" is vague and could refer to different interpretations for different users."
+Feature Request Number - 160,"Request Title: Feature: Group notifications by toot - Request Description: In the notifications tab, the app tells you that “@realpixelcodeboosted your post” and displays a preview of the toot beneath. Now, when a toot becomes popular and gets quite a few favourites and boosts, it quickly becomes a mess.Instead, my proposal is to group favourite and boost notifications by the respective toot, so the notification would instead look like this:Your post has received 14 boosts from:user1user2user3...[toot preview]","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Title: Feature: Group notifications by toot - Request Description: In the notifications tab, the app tells you that “@realpixelcodeboosted your post” and displays a preview of the toot beneath. Now, when a toot becomes popular and gets quite a few favourites and boosts, it quickly becomes a mess.Instead, my proposal is to group favourite and boost notifications by the respective toot, so the notification would instead look like this:Your post has received 14 boosts from:user1user2user3...[toot preview]""","1. Lexical ambiguity:
+- ""toot"" could refer to the sound a horn makes or to a post on a social media platform.
+- ""boost"" could refer to an increase in popularity or to a feature on a social media platform.
+
+2. Syntactic ambiguity:
+- The phrase ""group notifications by toot"" could be interpreted as either grouping notifications together based on the content of the post or based on the post itself.
+
+3. Semantic ambiguity:
+- The term ""quite a few"" is vague and could have different interpretations.
+- ""Popular"" could refer to a certain number of likes or boosts, or it could be subjective.
+
+4. Pragmatic ambiguity:
+- It is not clear if ""your post"" in the second sentence refers to the user's own post or a post that the user has been tagged in.
+- The phrase ""instead, my proposal is to"" could imply that the proposed solution is different from what is currently being done, or it could mean adding on to the current system.
+
+5. Vagueness:
+- The text does not specify how many likes or boosts would constitute a ""popular"" post.
+- It is not clear what the term ""group"" means in terms of organizing the notifications."
+Feature Request Number - 72,"Request Title: Unable to access hashtags with talkback - Request Description: When using talkback there is no way to access the hashtag links in a post Edit 1: i stand corrected. In a post with only one hashtag it appears possible to access it by long pressing the post, however this is unintuitive. In posts with more than one hashtag that trick doesnt work either Edit 2: i feel tusky has a good way of fixing this by adding links and hashtags to the talkback local context menu","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Title: Unable to access hashtags with talkback - Request Description: When using talkback there is no way to access the hashtag links in a post Edit 1: i stand corrected. In a post with only one hashtag it appears possible to access it by long pressing the post, however this is unintuitive. In posts with more than one hashtag that trick doesnt work either Edit 2: i feel tusky has a good way of fixing this by adding links and hashtags to the talkback local context menu""","1. Lexical ambiguity: ""hashtags"" can refer to the symbol (#) or to the term used for labeling and searching content on social media platforms.
+2. Syntactic ambiguity: ""access hashtags"" can mean either accessing the links within a post that contain hashtags, or accessing the symbol (#) itself.
+3. Semantic ambiguity: ""no way"" can mean either impossible or difficult.
+4. Pragmatic ambiguity: ""stand corrected"" can mean either admitting being incorrect or standing in a physically corrected position.
+5. Vagueness: ""unintuitive"" does not provide specific information about what makes accessing hashtags unintuitive.
+6. Vagueness: ""more than one"" does not specify the exact number of hashtags in a post.
+7. Syntactic ambiguity: ""that trick"" can refer to the long press method mentioned in the previous sentence, or to another unspecified method.
+8. Lexical ambiguity: ""fixing"" can mean either repairing or correcting/adjusting.
+9. Syntactic ambiguity: ""talkback local context menu"" could mean a menu that is specific to the talkback feature or a menu that is located locally on the device."
+Feature Request Number - 115,Request Title: Feature: Optional indicator for bots - Request Description: An optional setting to show who is marked as a bot on Mastodon,"You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Title: Feature: Optional indicator for bots - Request Description: An optional setting to show who is marked as a bot on Mastodon""","Lexical ambiguity: ""feature"" and ""indicator"" can refer to a characteristic or a component of software.
+Syntactic ambiguity: ""optional setting"" could modify ""to show"" or ""is marked"".
+Semantic ambiguity: ""bot"" could refer to a programmed account or a human user.
+Pragmatic ambiguity: It is not clear who the intended audience for this feature is.
+Vagueness: It is unclear what functionality the ""optional setting"" would provide and how it would be shown."
+Feature Request Number - 50,Request Title: Feature: Display profile notes - Request Description: In the Web UI one can add notes to other profiles. It should be possible to view and edit them in the app too.,"You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Title: Feature: Display profile notes - Request Description: In the Web UI one can add notes to other profiles. It should be possible to view and edit them in the app too.""","1. Lexical ambiguity:
+-There is ambiguity in the use of the word ""feature"" in the title. It could refer to a function or characteristic of something, or it could refer to a specific feature (such as a profile note) being requested.
+-The word ""notes"" in the title could refer to personal observations or specific information about a profile.
+-The word ""UI"" in the description could stand for ""user interface"" or ""user information"".
+-The word ""view"" could mean to see or to consider something.
+
+2. Syntactic ambiguity:
+-The phrase ""Display profile notes"" could be interpreted as either to show the notes or to show the person providing the notes.
+-The phrase ""one can add notes to other profiles"" could mean that a person can add notes to other profiles or that a person can add their own notes to other profiles.
+-The word ""it"" in the description could refer to either the action of adding notes or the action of viewing and editing them.
+
+3. Semantic ambiguity:
+-The word ""possible"" could mean ""able"" or ""acceptable"".
+-The phrase ""the app"" could refer to a specific app or to any app.
+-The phrase ""view and edit"" leaves open the possibility for other actions to be taken, such as deleting or sharing the notes.
+
+4. Pragmatic ambiguity:
+-The phrase ""It should be possible"" could imply that something needs to be changed in order to make it possible, but it could also imply that it should already be possible.
+-The request does not specify who is responsible for making the feature available in the app.
+
+5. Vagueness:
+-The request does not specify which type of app (mobile, desktop, etc.) the feature should be available in.
+-The request does not specify which type of profiles the notes can be added to."
+Feature Request Number - 150,"Request Title: [Feature request] Implement admin settings panel - Request Description: Some of us may be one of admin in some instances, but we don't have admin settings panel on official mobile app, maybe we should do this","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Title: [Feature request] Implement admin settings panel - Request Description: Some of us may be one of admin in some instances, but we don't have admin settings panel on official mobile app, maybe we should do this""","1) Lexical ambiguity: ""admin"" - it could refer to either a job title or a user role.
+2) Syntactic ambiguity: The phrase ""some of us may be one of admin"" is unclear in terms of who exactly it is referring to.
+3) Semantic ambiguity: The phrase ""implement admin settings panel"" could mean either creating it or adding new features to an existing one.
+4) Pragmatic ambiguity: The statement ""maybe we should do this"" leaves the purpose or necessity of implementing the admin settings panel open to interpretation.
+5) Vagueness: The description does not specify which mobile app or which features are missing from the admin settings panel."
+Feature Request Number - 117,"Request Title:  Feature: ability to save as draft - Request Description: When I click the X button, it automatically asks to discard the toot draft. I can't save it for later and it looks impossible from my side","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Title:  Feature: ability to save as draft - Request Description: When I click the X button, it automatically asks to discard the toot draft. I can't save it for later and it looks impossible from my side""","1. Lexical ambiguity:
+- ""Feature"" could refer to a specific function or capability within a software program, or it could refer to a particular aspect or quality.
+- ""Save as draft"" could refer to the ability to save unfinished work and continue it later, or it could refer to saving a draft for future reference.
+- ""Toot"" is a slang term for a tweet, but in this context it is unclear if it refers to the specific platform being used or any type of written content.
+
+2. Syntactic ambiguity:
+- ""When I click the X button"" could refer to the action of clicking the X button or the result of clicking the X button.
+- ""Discard the toot draft"" could be interpreted as discarding the draft of a toot, or discarding the toot that is in draft form.
+- ""It looks impossible from my side"" could mean that the speaker is unable to save as a draft, or it could imply that the feature appears impossible to add from the speaker's perspective.
+
+3. Semantic ambiguity:
+- ""Ability"" could refer to a specific technical capability, or it could refer to a personal skill or talent.
+- ""Save for later"" could mean saving unfinished work to be continued later, or it could imply saving a draft for future reference.
+- ""Impossible"" could mean the feature is currently not available, or that the speaker is unable to find/use it.
+
+4. Pragmatic ambiguity:
+- ""Automatically asks"" could imply that it is a default setting or a prompt for the user to choose, or it could suggest that the software is specifically programmed to ask for confirmation.
+- ""My side"" could refer to the speaker's screen/interface, or it could imply a personal perspective or preference.
+
+5. Vagueness:
+- It is unclear what the ""X button"" specifically refers to, as it could be any button on the user interface.
+- It is not specified what platform or software program is being used.
+- There is no context given for the term ""toot"", making it unclear if it is a specific feature within the platform or a general term for any type of written content."
+Feature Request Number - 161,"Request Title:  Feature: Filter notifications by type - Request Description: Just like in the web UI it should be possible to filter notifications by their types (favourites, boosts, polls...).","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Title:  Feature: Filter notifications by type - Request Description: Just like in the web UI it should be possible to filter notifications by their types (favourites, boosts, polls...).""","1. Lexical ambiguity in ""favourites"": it could refer to either a specific feature or a personal preference
+
+2. Syntactic ambiguity in ""it should be possible"": it is unclear who or what is responsible for making this possible
+
+3. Semantic ambiguity in ""types"": it is unclear what specific types of notifications are being referred to
+
+4. Pragmatic ambiguity in ""web UI"": it is not specified which specific web user interface is being referenced
+
+5. Vagueness in ""filter notifications"": it is not specified how the notifications will be filtered or what criteria will be used."
+Feature Request Number - 76,"Request Title:  The app should crop and compress avatar image for me - Request Description: When I try to change my avatar image, it offers no cropping, and it shows an ""image larger than 2mb"" error to me.I expect the app toallow me to crop specific area as my avatarcompress the image to within 2mb if it is too large","You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Title:  The app should crop and compress avatar image for me - Request Description: When I try to change my avatar image, it offers no cropping, and it shows an ""image larger than 2mb"" error to me.I expect the app toallow me to crop specific area as my avatarcompress the image to within 2mb if it is too large""","1. Lexical ambiguity in ""crop"" - could refer to either reducing the size of the image or cutting out a certain part of the image.
+2. Syntactic ambiguity in ""it"" - could refer to either the app or the process of changing the avatar image.
+3. Semantic ambiguity in ""compress"" - could refer to either reducing file size or compressing a physical object.
+4. Pragmatic ambiguity in ""offer"" - could mean either providing an option or automatically cropping.
+5. Vagueness in ""specific area"" - does not specify what exactly is meant by this.
+6. Syntactic ambiguity in ""compress the image to within 2mb"" - unclear if 2mb is the maximum size or the desired size.
+7. Semantics ambiguity in ""too large"" - does not specify what is considered too large or if it is in terms of file size or physical dimensions."
+Feature Request Number - 51,Request Title:  Feature: List of blocked/muted profiles and domains - Request Description: It would be useful to be able to view a list of all blocked/muted profiles and domains in the app.,"You are a software analyst specializing in ambiguity detection. Your task is to identify all the ambiguities in the following text. The ambiguity categories are lexical, syntactic, semantic, pragmatic, and vagueness. ""Request Title:  Feature: List of blocked/muted profiles and domains - Request Description: It would be useful to be able to view a list of all blocked/muted profiles and domains in the app.""","1. ""Feature"" can refer to a characteristic or functionality of the app, or it could also refer to a story or article.
+2. ""List"" can refer to a written record, a group of items, or a catalog.
+3. ""Blocked/muted"" can have different interpretations, as the action of blocking and muting can have different consequences and meanings.
+4. ""Profiles"" could refer to user profiles, company profiles, or social media profiles.
+5. ""Domains"" could refer to website domains or fields of study.
+6. The word ""useful"" is vague and does not specify in what way the feature would be useful.
+7. It is unclear if the feature would only show blocked/muted items or also allow for unblocking/unmuting.
+8. The phrase ""in the app"" is not specific and could refer to different apps or platforms."
