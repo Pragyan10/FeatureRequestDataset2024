@@ -22,8 +22,16 @@
 
 ![Mastodon_main_reasons.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Mastodon_main_reasons.png)
 
+## Signal Feature Requests Analaysis 
+
+### No of Closed Requests with commit ID and without commit ID 
+
 ![Signal_main_analysis.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Signal_main_analysis.png)
 
+### Coding framework for why the Closed Requests had no commit ID
+
 ![Signal_main_reasons.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Signal_main_reasons.png)
+
+### Coding framework - Expansion of the "Rejected" Codding Category for why the Closed Requests had no commit ID
 
 ![Signal_rejected_reasons.png](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/PreliminaryResults/Plots/Signal_rejected_reasons.png)
