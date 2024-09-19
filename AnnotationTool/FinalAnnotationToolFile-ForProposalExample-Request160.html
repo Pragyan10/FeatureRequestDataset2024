@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annotation Tool</title>
+    <link href="https://s3.amazonaws.com/mturk-public/bs30/css/bootstrap.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        #annotation-tool {
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .highlighted {
+            border-radius: 4px;
+        }
+        .highlighted.lexical {
+            background-color: #ffe082;
+        }
+        .highlighted.pragmatic {
+            background-color: #82caff;
+        }
+        .highlighted.syntactic {
+            background-color: #82ff82;
+        }
+        .highlighted.semantic {
+            background-color: #ff82d0;
+        }
+        .highlighted.incompleteness {
+            background-color: #ff8a80;
+        }
+        .highlighted.vagueness {
+            background-color: #b39ddb;
+        }
+        .highlighted-temporary {
+            background-color: #cccccc;
+        }
+        .annotation-text {
+            border: 2px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            min-height: 150px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            margin-right: 10px;
+            border-radius: 25px;
+        }
+        .form-check-inline {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        .form-check-input {
+            margin-top: 6px;
+        }
+        #buttons-container {
+            margin-top: 20px;
+        }
+        #annotations-section {
+            border-left: 2px solid #ccc;
+            padding-left: 20px;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+        hr {
+            border-top: 2px solid #ccc;
+            margin: 20px 0;
+        }
+        .dropdown-toggle::after {
+            margin-left: 10px;
+        }
+        .mt-4 {
+            margin-top: 1.5rem !important;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+    <script>
+
+        // the logis here is to store annotation without update the original text 
+        // make a list with all the annotation 
+        // each annotation inside the list is dictionary 
+        // dictionary consist of keys - category, class, subclass, reason, interpretation, question, affectsDownstream question, and downstream affects 
+        // update the index and also maintain highlights 
+        // since we have the index we dont really need the spans and all in the original 
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // variables used 
+
+            // hold the highlight range
+            let storedRange = null;
+            // what has been annoatated
+            let annotationHistory = [];
+            // hold the highlihght
+            let temporaryHighlight = null;
+            const initialText = document.getElementById('text-to-annotate').textContent.trim();
+            
+            // subclass for all the class of Ambiguities used 
+            const subclasses = {
+                "Lexical": ["Homonym", "Polysemy", "N/A", "Other"],
+                "Syntactic": ["Analytical", "Attachment", "Coordination", "Elliptical", "N/A", "Other"],
+                "Semantic": ["Coordination", "Scope", "Referential", "N/A", "Other"],
+                "Pragmatic": ["Referential", "Deictic", "Language Error", "N/A", "Other"],
+                "Vagueness": ["N/a", "Other"],
+            };
+            
+            //storing a selection that is made 
+            function storeSelection() {
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    // selecting the selection on mouse highlight
+                    storedRange = selection.getRangeAt(0).cloneRange();
+                    temporarilyHighlightSelection(storedRange);
+                }
+            }
+
+            // helper functions: this will make the selected text highligh dark so that the annotation can be completed
+            function temporarilyHighlightSelection(range) {
+                // first remove of there is any previous highlight - shading 
+                clearTemporaryHighlight();
+                // create a span that temporarily highlightes the selected text 
+                const span = document.createElement('span');
+                span.className = 'highlighted-temporary';
+                range.surroundContents(span);
+                temporaryHighlight = span;
+            }
+            
+            // helper functions: call this when the add annotatin is selected so that the temporary goes away or even when a new selection is made
+            function clearTemporaryHighlight() {
+                if (temporaryHighlight) {
+                    const parent = temporaryHighlight.parentNode;
+                    while (temporaryHighlight.firstChild) {
+                        parent.insertBefore(temporaryHighlight.firstChild, temporaryHighlight);
+                    }
+                    parent.removeChild(temporaryHighlight);
+                    temporaryHighlight = null;
+                }
+            }
+
+            document.getElementById('text-to-annotate').addEventListener('mouseup', storeSelection);
+            document.getElementById('annotation-comment').addEventListener('focus', () => {
+                if (storedRange) {
+                    temporarilyHighlightSelection(storedRange);
+                }
+            });
+
+            // helper functions:  adjust the boundaries/range so that i captures to the end of the token when highlighting  
+            function adjustToTokenBoundaries(text, start, end) {
+                const before = text.slice(0, start);
+                const after = text.slice(end);
+
+                const startBoundary = /\S+$/.exec(before);
+                const endBoundary = /^\S*/.exec(after);
+
+                const adjustedStart = startBoundary ? start - startBoundary[0].length : start;
+                const adjustedEnd = end + (endBoundary ? endBoundary[0].length : 0);
+
+                return { adjustedStart, adjustedEnd };
+            }
+
+            //  helper functions: get the annotation index - start and end index - but this is after adjustment 
+            function getAnnotationIndices(container, range) {
+                const preCaretRange = document.createRange();
+                preCaretRange.selectNodeContents(container);
+                preCaretRange.setEnd(range.startContainer, range.startOffset);
+                let startOffset = preCaretRange.toString().length;
+
+                preCaretRange.setEnd(range.endContainer, range.endOffset);
+                let endOffset = preCaretRange.toString().length;
+
+                const textContent = container.textContent;
+                const { adjustedStart, adjustedEnd } = adjustToTokenBoundaries(textContent, startOffset, endOffset);
+
+                return { start: adjustedStart, end: adjustedEnd };
+            }
+            
+            // helper functions:  call this when we select add ambiguity - this is the UI populator - it populates the annotation on the UI 
+            function updateAnnotationsList() {
+                const annotationsList = document.getElementById('annotations-list');
+                annotationsList.innerHTML = '';
+                // add all the annotation to the UI as a list 
+                annotationHistory.forEach(annotation => {
+                    const annotationItem = document.createElement('li');
+                    annotationItem.className = "list-group-item";
+                    
+                    if (annotation.category == "Ambiguity"){
+                        
+                        annotationItem.innerHTML = `<strong> Defect: </strong> ${annotation.category} <br> <strong> Selected Text: </strong> "${annotation.text}" <br> <strong> Class: </strong> ${annotation.label} <br> <strong> Subclass: </strong> ${annotation.subclass} <br> <strong>Interpretation:</strong> ${annotation.interpretation} <br> <strong> Affects Downstream tasks: </strong>  ${annotation.affectsDownstream} <br> <strong> Affects Description:</strong> ${annotation.affectDescription} <br> <strong> Reasons: </strong>  ${annotation.comment} <br> <strong> Questions: </strong> ${annotation.question}`;
+                    
+                    
+                    } else if (annotation.category == "Incompleteness"){
+                        annotationItem.innerHTML = `<strong> Defect: </strong> ${annotation.category} <br> <strong> Selected Text: </strong> "${annotation.text}" <br> <strong>Interpretation:</strong> ${annotation.interpretation} <br> <strong> Affects Downstream tasks: </strong>  ${annotation.affectsDownstream} <br> <strong> Affects Description:</strong> ${annotation.affectDescription} <br> <strong> Reasons: </strong>  ${annotation.comment} <br> <strong> Questions: </strong> ${annotation.question}`;
+                    } else if (annotation.category == "Vagueness"){
+                        annotationItem.innerHTML = `<strong> Defect: </strong> ${annotation.category} <br> <strong> Selected Text: </strong> "${annotation.text}" <br> <strong>Interpretation:</strong> ${annotation.interpretation} <br> <strong> Affects Downstream tasks: </strong>  ${annotation.affectsDownstream} <br> <strong> Affects Description:</strong> ${annotation.affectDescription} <br> <strong> Reasons: </strong>  ${annotation.comment} <br> <strong> Questions: </strong> ${annotation.question}`;
+                    } else {
+                        alert('Error!!!!');
+                    }
+                    annotationsList.appendChild(annotationItem);
+                });
+            }
+            
+            // helper functions: get the offsets 
+            function getNodeAtOffset(container, offset) {
+                let node = container;
+                let currentOffset = 0;
+
+                function traverseNodes(node) {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        if (currentOffset + node.length >= offset) {
+                            return { node, offset: offset - currentOffset };
+                        }
+                        currentOffset += node.length;
+                    } else {
+                        for (let i = 0; i < node.childNodes.length; i++) {
+                            const result = traverseNodes(node.childNodes[i]);
+                            if (result) {
+                                return result;
+                            }
+                        }
+                    }
+                    return null;
+                }
+
+                return traverseNodes(node);
+            }
+
+            // helper functions: put a span around the text and color it 
+            function highlightText(container, start, end, label) {
+                const range = document.createRange();
+                const startNode = getNodeAtOffset(container, start);
+                const endNode = getNodeAtOffset(container, end);
+                range.setStart(startNode.node, startNode.offset);
+                range.setEnd(endNode.node, endNode.offset);
+
+                const contents = range.extractContents();
+                const span = document.createElement('span');
+                span.className = `highlighted ${label.toLowerCase()}`;
+                span.appendChild(contents);
+                // add a span highlightes the text after adjusting the index - so complete end to end token is highlighted 
+                range.insertNode(span);
+
+                range.detach();
+                span.normalize();
+
+                return span;
+            }
+
+            // call this when add annotation is clicked 
+            function addAnnotation() {
+                const textElement = document.getElementById('text-to-annotate');
+                const selectedText = storedRange ? storedRange.toString() : '';
+                // get all the values from the UI elements 
+                const comment = document.getElementById('annotation-comment').value;
+                const question = document.getElementById('user-question').value;
+                const interpretation = document.getElementById('user-interpretation').value;
+                const affectDescription = document.getElementById('affect-description').value;
+
+                // get the radio value for the type of defect - either ambiguity or incompleteness - UI will change accordingly 
+                const categoryRadios = document.getElementsByName('category');
+                let category = '';
+                for (let i = 0; i < categoryRadios.length; i++) {
+                    if (categoryRadios[i].checked) {
+                        category = categoryRadios[i].value;
+                        break;
+                    }
+                }
+
+                let label = '';
+
+                // this goes for ambiguity - get the category is ambiguity 
+                if (category === 'Ambiguity') {
+                    const labelRadios = document.getElementsByName('label');
+                    for (let i = 0; i < labelRadios.length; i++) {
+                        if (labelRadios[i].checked) {
+                            label = labelRadios[i].value;
+                            break;
+                        }
+                    }
+
+                    const subclassRadios = document.getElementsByName('subclass');
+                    let subclass = '';
+                    for (let i = 0; i < subclassRadios.length; i++) {
+                        if (subclassRadios[i].checked) {
+                            subclass = subclassRadios[i].value;
+                            break;
+                        }
+                    }
+
+                    if (subclass === 'Other') {
+                        subclass = document.getElementById('other-subclass-text').value;
+                    }
+
+                    const affectsDownstreamRadios = document.getElementsByName('affects-downstream');
+                    let affectsDownstream = '';
+                    for (let i = 0; i < affectsDownstreamRadios.length; i++) {
+                        if (affectsDownstreamRadios[i].checked) {
+                            affectsDownstream = affectsDownstreamRadios[i].value;
+                            break;
+                        }
+                    }
+
+                    if (label && subclass && comment && question && interpretation && affectsDownstream) {
+                        // first adjust the range and then store it in start and end - this is the extended range end to end of a token
+                        const { start, end } = getAnnotationIndices(textElement, storedRange);
+                        // use the index from earlier to grab the text 
+                        const adjustedText = textElement.textContent.slice(start, end);
+                        // highlight the text - color showing it was annotated 
+                        const span = highlightText(textElement, start, end, label);
+                        // push to the annotation history list 
+                        annotationHistory.push({ category, label, subclass, comment, question, interpretation, affectsDownstream, affectDescription, text: adjustedText, start, end });
+                        // update the UI 
+                        updateAnnotationsList();
+                        // clear all 
+                        resetForm();
+                    } else {
+                        alert('Please select text, choose a label, a subclass, write a comment, enter a question, enter an interpretation, and specify if it affects the downstream task.');
+                    }
+                } else if (category === 'Incompleteness') {
+                    
+                    const affectsDownstreamRadios = document.getElementsByName('affects-downstream');
+                    let affectsDownstream = '';
+                    for (let i = 0; i < affectsDownstreamRadios.length; i++) {
+                        if (affectsDownstreamRadios[i].checked) {
+                            affectsDownstream = affectsDownstreamRadios[i].value;
+                            break;
+                        }
+                    }
+                    
+                    if (comment && question && interpretation) {
+                        const adjustedText = "N/A";
+                        const start = 0;
+                        const end = 0;
+                        annotationHistory.push({ category, comment, question, interpretation, affectsDownstream, affectDescription, text: adjustedText, start, end });
+                        updateAnnotationsList();
+                        resetForm();
+                    } else {
+                        alert('Please write a comment, enter a question, and enter an interpretation.');
+                    }
+                } else if (category === 'Vagueness') {
+                    if (selectedText && comment && question && interpretation) {
+                        const { start, end } = getAnnotationIndices(textElement, storedRange);
+                        const adjustedText = textElement.textContent.slice(start, end);
+                        const span = highlightText(textElement, start, end, category.toLowerCase());
+                        annotationHistory.push({ category, comment, question, interpretation, text: adjustedText, start, end });
+                        updateAnnotationsList();
+                        resetForm();
+                    } else {
+                        alert('Please select text, write a comment, enter a question, and enter an interpretation.');
+                    }
+                } else {
+                    alert('Please select a category.');
+                }
+            }
+
+            function resetForm() {
+                document.getElementById('annotation-comment').value = '';
+                document.getElementById('user-question').value = '';
+                document.getElementById('user-interpretation').value = '';
+                document.getElementById('affect-description').value = '';
+                document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+                document.getElementById('other-subclass-text').value = '';
+                document.getElementById('subclass-container').style.display = 'none';
+                document.getElementById('affect-description-container').style.display = 'none';
+                document.getElementById('label-container').style.display = 'none';
+                storedRange = null;
+                clearTemporaryHighlight();
+            }
+
+            document.getElementById('add-annotation').addEventListener('click', (event) => {
+                event.preventDefault();
+                addAnnotation();
+            });
+
+            document.getElementById('clear-last').addEventListener('click', () => {
+                if (annotationHistory.length > 0) {
+                    const lastAnnotation = annotationHistory.pop();
+                    const textElement = document.getElementById('text-to-annotate');
+                    const annotationSpans = textElement.getElementsByClassName('highlighted');
+
+                    for (let i = annotationSpans.length - 1; i >= 0; i--) {
+                        if (annotationSpans[i].textContent === lastAnnotation.text) {
+                            const parent = annotationSpans[i].parentNode;
+                            while (annotationSpans[i].firstChild) {
+                                parent.insertBefore(annotationSpans[i].firstChild, annotationSpans[i]);
+                            }
+                            parent.removeChild(annotationSpans[i]);
+                            break;
+                        }
+                    }
+
+                    updateAnnotationsList();
+                    resetForm();
+                }
+            });
+
+            document.getElementById('clear-all').addEventListener('click', () => {
+                const textElement = document.getElementById('text-to-annotate');
+                while (textElement.firstChild) {
+                    textElement.removeChild(textElement.firstChild);
+                }
+                textElement.textContent = initialText;
+                annotationHistory = [];
+                updateAnnotationsList();
+                resetForm();
+            });
+
+            document.getElementById('submit-annotations').addEventListener('click', (event) => {
+                event.preventDefault();
+                const annotationHistoryJSON = JSON.stringify(annotationHistory);
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'annotationHistory';
+                hiddenInput.value = annotationHistoryJSON;
+                document.querySelector('crowd-form').appendChild(hiddenInput);
+                document.querySelector('crowd-form').submit();
+            });
+
+            // to make the UI dynamic for category selected 
+            const categoryRadios = document.getElementsByName('category');
+            for (let i = 0; i < categoryRadios.length; i++) {
+                categoryRadios[i].addEventListener('change', (event) => {
+                    const selectedCategory = event.target.value;
+                    const subclassContainer = document.getElementById('subclass-container');
+                    const labelContainer = document.getElementById('label-container');
+                    const otherSubclassContainer = document.getElementById('other-subclass-container');
+                    const interpretationLabel = document.querySelector('label[for="user-interpretation"]');
+                    if (selectedCategory === 'Ambiguity') {
+                        labelContainer.style.display = 'block';
+                        subclassContainer.style.display = 'none';
+                        interpretationLabel.textContent = 'List all the interpretations that are caused by the selected defect (Use semicolons to separate the interpretations).';
+                    } else if (selectedCategory === 'Incompleteness') {
+                        interpretationLabel.textContent = 'To your best knowledge, please list all the missing information/statements from the feature request (Use semicolons to separate the information/statements).';
+                        labelContainer.style.display = 'none';
+                        subclassContainer.style.display = 'none';
+                        otherSubclassContainer.style.display = 'none';
+                        document.getElementById('other-subclass-text').value = '';
+                    } else {
+                        labelContainer.style.display = 'none';
+                        subclassContainer.style.display = 'none';
+                        interpretationLabel.textContent = 'List all the interpretations that are caused by the selected defect (Use semicolons to separate the interpretations).';
+                    }
+                });
+            }
+
+            // make the class of ambiguity dynamic 
+            const labelRadios = document.getElementsByName('label');
+            for (let i = 0; i < labelRadios.length; i++) {
+                labelRadios[i].addEventListener('change', (event) => {
+                    const selectedLabel = event.target.value;
+                    const subclassContainer = document.getElementById('subclass-container');
+                    const subclassOptions = document.getElementById('subclass-options');
+                    subclassOptions.innerHTML = '';
+                    subclasses[selectedLabel].forEach(subclass => {
+                        const subclassId = subclass.toLowerCase().replace(/\s+/g, '-');
+                        const radio = document.createElement('input');
+                        radio.className = 'form-check-input';
+                        radio.type = 'radio';
+                        radio.name = 'subclass';
+                        radio.id = subclassId;
+                        radio.value = subclass;
+                        const label = document.createElement('label');
+                        label.className = 'form-check-label';
+                        label.htmlFor = subclassId;
+                        label.textContent = subclass;
+                        const div = document.createElement('div');
+                        div.className = 'form-check form-check-inline';
+                        div.appendChild(radio);
+                        div.appendChild(label);
+                        subclassOptions.appendChild(div);
+                    });
+                    subclassContainer.style.display = 'block';
+                });
+            }
+
+            const affectsDownstreamRadios = document.getElementsByName('affects-downstream');
+            for (let i = 0; i < affectsDownstreamRadios.length; i++) {
+                affectsDownstreamRadios[i].addEventListener('change', (event) => {
+                    const selectedValue = event.target.value;
+                    const affectDescriptionContainer = document.getElementById('affect-description-container');
+                    if (selectedValue === 'Yes') {
+                        affectDescriptionContainer.style.display = 'block';
+                    } else {
+                        affectDescriptionContainer.style.display = 'none';
+                        document.getElementById('affect-description').value = '';
+                    }
+                });
+            }
+
+            document.getElementById('subclass-options').addEventListener('change', (event) => {
+                const selectedSubclass = event.target.value;
+                const otherSubclassContainer = document.getElementById('other-subclass-container');
+                if (selectedSubclass === 'Other') {
+                    otherSubclassContainer.style.display = 'block';
+                } else {
+                    otherSubclassContainer.style.display = 'none';
+                    document.getElementById('other-subclass-text').value = '';
+                }
+            });
+        });
+    </script>
+    <crowd-form answer-format="flatten-objects">
+        <div class="container">
+            <div id="annotation-tool" class="row">
+                <div class="col-md-8">
+                    <div id="text-to-annotate" class="annotation-text">Request Number - 160 | Request Title - Feature: Group notifications by toot | Request Description - In the notifications tab, the app tells you that “@realpixelcodeboosted your post” and displays a preview of the toot beneath. Now, when a toot becomes popular and gets quite a few favourites and boosts, it quickly becomes a mess.Instead, my proposal is to group favourite and boost notifications by the respective toot, so the notification would instead look like this:Your post has received 14 boosts from:user1user2user3...[toot preview]</div>
+                    <hr>
+                    <div>
+                        <label>Select the category of defect:</label> <br />
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="category" id="ambiguity" value="Ambiguity">
+                            <label class="form-check-label" for="ambiguity">Ambiguity</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="category" id="incompleteness" value="Incompleteness">
+                            <label class="form-check-label" for="incompleteness">Incompleteness</label>
+                        </div>
+                        <!-- <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="category" id="vagueness" value="Vagueness">
+                            <label class="form-check-label" for="vagueness">Vagueness</label>
+                        </div> -->
+                    </div>
+                    <br>
+                    <div id="label-container" style="display:none;">
+                        <label>Select the class of Ambiguity:</label> <br />
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="label" id="lexical" value="Lexical">
+                            <label class="form-check-label" for="lexical">Lexical</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="label" id="syntactic" value="Syntactic">
+                            <label class="form-check-label" for="syntactic">Syntactic</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="label" id="semantic" value="Semantic">
+                            <label class="form-check-label" for="semantic">Semantic</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="label" id="pragmatic" value="Pragmatic">
+                            <label class="form-check-label" for="pragmatic">Pragmatic</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="label" id="vagueness" value="Vagueness">
+                            <label class="form-check-label" for="vagueness">Vagueness</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="subclass-container" style="display:none;">
+                        <label>Select the subclass of Ambiguity:</label> <br />
+                        <div id="subclass-options">
+                            <!-- Subclass options will be dynamically inserted here -->
+                        </div>
+                    </div>
+                    <br>
+                    <div id="other-subclass-container" style="display:none;">
+                        <label for="other-subclass-text">Please specify the subclass:</label>
+                        <textarea id="other-subclass-text" class="form-control" name="other_subclass_text" rows="2" placeholder="Enter subclass"></textarea>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="user-interpretation">List all the interpretations that are caused by the selected defect (Use semicolons to separate the interpretations).</label>
+                        <textarea id="user-interpretation" class="form-control" name="user_interpretation" rows="3" placeholder="Enter interpretation"></textarea>
+                    </div>
+                    <hr>
+
+                    <div class="form-group">
+                        <label for="affects-downstream">Does the defect in the selected text affect the downstream software engineering task (e.g., design and implementation)?</label> <br />
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="affects-downstream" id="affects-yes" value="Yes">
+                            <label class="form-check-label" for="affects-yes">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="affects-downstream" id="affects-no" value="No">
+                            <label class="form-check-label" for="affects-no">No</label>
+                        </div>
+                    </div>
+                    <div id="affect-description-container" style="display:none;">
+                        <div class="form-group">
+                            <label for="affect-description">What instance(s) of the app design and/or implementation would be affected by this defect? For example, data structure, design size, GUI element design, API usage, etc.</label>
+                            <textarea id="affect-description" class="form-control" name="affect_description" rows="3" placeholder="Describe how it affects"></textarea>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="annotation-comment">Please explain the reasons behind your assessment of the selected text as defect.</label>
+                        <textarea id="annotation-comment" class="form-control" name="annotation_comment" rows="3" placeholder="Enter comment"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-question">To clarify the defect, what question(s) would you ask the user (Use semicolons to separate the questions)?</label>
+                        <textarea id="user-question" class="form-control" name="user_question" rows="3" placeholder="Enter question"></textarea>
+                    </div>
+                    <div id="buttons-container">
+                        <button id="add-annotation" class="btn btn-success btn-custom" type="button">Add Annotation</button>
+                        <button id="clear-last" class="btn btn-warning btn-custom" type="button">Clear Last</button>
+                        <button id="clear-all" class="btn btn-danger btn-custom" type="button">Clear All</button>
+                        <button id="submit-annotations" class="btn btn-primary btn-custom" type="submit">Submit Annotations</button>
+                    </div>
+                </div>
+                <div id="annotations-section">
+                    <h2>Annotations</h2>
+                    <ul id="annotations-list" class="list-group"></ul>
+                </div>
+            </div>
+        </div>
+    </crowd-form>
+</body>
+</html>
