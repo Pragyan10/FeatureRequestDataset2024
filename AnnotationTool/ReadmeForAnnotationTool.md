@@ -18,4 +18,4 @@ When you complete the annotation on the tool you would need to copy the generate
 - the text can be formated from this file to be used for annotation 
 
 ## Preview of the Annotation Tool 
-(https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/AnnotationTool/AnnotationToolPreview.png)
+![AnnotationTool](https://github.com/Pragyan10/FeatureRequestDataset2024/blob/main/AnnotationTool/AnnotationToolPreview.png)
